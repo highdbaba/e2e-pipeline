@@ -1,16 +1,23 @@
 pipeline{
     agent {
-
     }
 
+    tools{
+        jdk 'Java17'
+        maven 'Maven3'
+    }
     stages{
 
-        stage{
- 
+        stage("Cleanup Workspace"){
+            steps{
+                cleanWs()
+            }
         }
 
-        stage{
-
+        stage("Checkout from SCM"){
+            steps{
+                git branch: 'Master', credentialsId: 'github', url: 'https://github.com/highdbaba/e2e-pipeline.git'
+            }
         }
     }
 }
