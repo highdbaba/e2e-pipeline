@@ -1,6 +1,6 @@
 pipeline{
-    agent {
-    }
+    //agent {
+    //}
 
     tools{
         jdk 'Java17'
