@@ -7,6 +7,16 @@ pipeline{
         jdk 'Java17'
         maven 'Maven3'
     }
+
+    environment {
+        APP_NAME = "e2e-pipeline-production"
+        RELEASE = "1.0.0"
+        DOCKER_USER = "1759"
+        DOCKER_PASS = "Dockerhub-Access"
+        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_TAG =  "${RELEASE}-${BUILD_NUMBER}"
+    }
+
     stages{
 
         stage("Cleanup Workspace"){
@@ -43,10 +53,12 @@ pipeline{
             }
         }
 
-        stage("Quality Gate"){
+        stage("Build and Push Docker Image"){
             steps{
                 script{
-                    waitForQualityGate abortPipeline: false, credentialsId: 'SonarQube-Access' 
+                    withDockerRegistry(credentialsId: 'Dockerhub-Access') {
+                    docker_image = docker.Build "${IMAGE_NAME}"
+                } 
                 }
             }
         }
