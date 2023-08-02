@@ -38,7 +38,15 @@ pipeline{
                 script{
                     withSonarQubeEnv(credentialsId: 'SonarQube-Access') {
                         sh "mvn sonar:sonar"
-}
+                    }
+                }
+            }
+        }
+
+        stage("Quality Gate"){
+            steps{
+                script{
+                    waitForQualityGate abortPipeline: false, credentialsId: 'SonarQube-Access' 
                 }
             }
         }
