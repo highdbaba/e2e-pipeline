@@ -59,9 +59,9 @@ pipeline{
                     echo "Building the docker image..."
                     withCredentials([usernamePassword(credentialsId: 'Dockerhub-Access', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh 'ls -la'
-                        sh "docker build -t ${IMAGE_NAME} ."
+                        sh "docker build -t 1759/e2e-app ."
                         sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh "docker push ${IMAGE_NAME}"
+                        sh "docker push 1759/e2e-app"
                     }
                 }
             }
