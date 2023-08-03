@@ -56,7 +56,7 @@ pipeline{
         stage("Build and Push Docker Image"){
            steps{
                 script{
-                    withDockerRegistry(credentialsId: 'Dockerhub-Access', url: 'https://hub.docker.com/') {
+                    withDockerRegistry(credentialsId:  'Github-Access', url: 'https://hub.docker.com/') {
                         docker_image = docker.build "${IMAGE_NAME}"
                     }
                 }
