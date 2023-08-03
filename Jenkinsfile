@@ -12,7 +12,7 @@ pipeline{
         APP_NAME = "e2e-pipeline-production"
         RELEASE = "1.0.0"
         DOCKER_USER = "1759"
-        DOCKER_PASS = "Dockerhub-Access"
+        DOCKER_PASS = "dockerhub"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG =  "${RELEASE}-${BUILD_NUMBER}"
     }
@@ -57,7 +57,7 @@ pipeline{
             steps {
                 script {
                     echo "Building the docker image..."
-                    withCredentials([usernamePassword(credentialsId: 'Dockerhub-Access', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh 'ls -la'
                         sh 'docker build -t 1759/e2e-app .'
                         sh "echo $PASS | docker login -u $USER --password-stdin"
