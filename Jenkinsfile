@@ -25,11 +25,11 @@ pipeline{
             }
         }
 
-        //stage("Checkout from SCM"){
-        //    steps{
-        //        git branch: 'master', credentialsId: 'Github-Access', url: 'https://github.com/highdbaba/e2e-pipeline.git'
-        //    }
-        //}
+        stage("Checkout from SCM"){
+            steps{
+                git branch: 'master', credentialsId: 'Github-Access', url: 'https://github.com/highdbaba/e2e-pipeline.git'
+            }
+        }
 
         stage("Building Application"){
             steps{
