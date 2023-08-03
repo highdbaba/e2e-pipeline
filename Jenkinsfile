@@ -25,11 +25,11 @@ pipeline{
             }
         }
 
-        stage("Checkout from SCM"){
-            steps{
-                git branch: 'master', credentialsId: 'Github-Access', url: 'https://github.com/highdbaba/e2e-pipeline.git'
-            }
-        }
+        //stage("Checkout from SCM"){
+        //    steps{
+        //        git branch: 'master', credentialsId: 'Github-Access', url: 'https://github.com/highdbaba/e2e-pipeline.git'
+        //    }
+        //}
 
         stage("Building Application"){
             steps{
@@ -61,6 +61,7 @@ pipeline{
                         sh 'ls -la'
                         sh 'docker build -t 1759/e2e-app .'
                         sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh 'docker search shiny'
                         sh 'docker push 1759/e2e-app'
                     }
                 }
