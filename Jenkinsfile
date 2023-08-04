@@ -61,6 +61,7 @@ pipeline{
                         sh 'ls -la'
                         docker_image = docker.build "${IMAGE_NAME}"
                         docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
                     }
                 }
             }
