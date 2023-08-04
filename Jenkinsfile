@@ -56,13 +56,12 @@ pipeline{
         stage('building image and Push Docker Image') {
             steps {
                 script {
-                    echo "Building the docker image..."
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'ls -la'
-                        sh 'docker build -t 1759/e2e-app .'
-                        sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh 'docker search shiny'
-                        sh 'docker push 1759/e2e-app'
+                    docker.withRegistry('', DOCKER_PASS) {
+                        docker_image = docker.build "${IMAGE_NAME}"
+                    }
+
+                    docker.withRegistry('', DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
                     }
                 }
             }
