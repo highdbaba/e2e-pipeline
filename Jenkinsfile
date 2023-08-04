@@ -60,7 +60,7 @@ pipeline{
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh 'ls -la'
                         sh 'docker build -t 1759/e2e-app .'
-                        sh 'echo $PASS | docker login -u $USER --password-stdin'
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh 'docker search shiny'
                         sh 'docker push 1759/e2e-app'
                     }
