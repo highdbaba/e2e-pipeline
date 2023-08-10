@@ -58,9 +58,10 @@ pipeline{
                 script {
                     echo "Building the docker image..."
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        
                         sh 'ls -la'
                         docker_image = docker.build "${IMAGE_NAME}"
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
                         docker_image.push("${IMAGE_TAG}")
                         //docker_image.push('latest')
                     }
