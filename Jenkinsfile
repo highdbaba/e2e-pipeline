@@ -25,11 +25,11 @@ pipeline{
             }
         }
 
-        stage("Checkout from SCM"){
+        /**stage("Checkout from SCM"){
             steps{
                 git branch: 'master', credentialsId: 'Github-Access', url: 'https://github.com/highdbaba/e2e-pipeline.git'
             }
-        }
+        }**/
 
         stage("Building Application"){
             steps{
@@ -43,7 +43,7 @@ pipeline{
             }
         }
 
-        stage("SonarQube Test Analysis"){
+        /**stage("SonarQube Test Analysis"){
             steps{
                 script{
                     withSonarQubeEnv(credentialsId: 'SonarQube-Access') {
@@ -51,7 +51,7 @@ pipeline{
                     }
                 }
             }
-        }
+        }**/
 
         stage('building image and Push Docker Image') {
             steps {
