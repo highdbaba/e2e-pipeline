@@ -25,11 +25,11 @@ pipeline{
             }
         }
 
-        /**stage("Checkout from SCM"){
+        stage("Checkout from SCM"){
             steps{
                 git branch: 'master', credentialsId: 'Github-Access', url: 'https://github.com/highdbaba/e2e-pipeline.git'
             }
-        }**/
+        }
 
         stage("Building Application"){
             steps{
@@ -58,6 +58,7 @@ pipeline{
                 script {
                     echo "Building the docker image..."
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh 'ls -la'
                         docker_image = docker.build "${IMAGE_NAME}"
                         docker_image.push("${IMAGE_TAG}")
