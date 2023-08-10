@@ -10,7 +10,7 @@ pipeline{
 
     environment {
         APP_NAME = "e2e-newpipeline-production"
-        RELEASE = "1.0.0"
+        RELEASE = "1.1.0"
         DOCKER_USER = "1759"
         DOCKER_PASS = "dockerhub"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
