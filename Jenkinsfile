@@ -68,5 +68,17 @@ pipeline{
                 }
             }
         }
+
+        stage('Test effect of Delete on Docker Image') {
+            steps {
+                script {
+                    echo "Deleting old docker image..."
+                    sh "docker rmi $IMAGE_NAME:$IMAGE_TAG"
+                    sh "docker rmi $IMAGE_NAME:latest"
+
+                    }
+                }
+            }
+        }
     }
 }
