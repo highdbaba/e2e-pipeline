@@ -69,7 +69,7 @@ pipeline{
             }
         }
 
-        stage('Test effect of Delete on Docker Image') {
+        stage('Test effect of Delete on Docker Image') {//This sectionis optional
             steps {
                 script {
                     echo "Deleting old docker image..."
