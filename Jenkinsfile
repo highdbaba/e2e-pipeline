@@ -74,9 +74,35 @@ pipeline{
                 script {
                     echo "Deleting old docker image..."
                     sh "docker rmi $IMAGE_NAME:$IMAGE_TAG"
-                    sh "docker rmi $IMAGE_NAME:latest"
+                    sh "docker rmi $IMAGE_NAME:latest"   
+                }
+            }
+        }
 
-                    
+        stage('Updating Kubernetes Deployment file') {
+            steps {
+                script {
+                    sh """
+                    cat deployment.yml
+                    sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yml
+                    cat deployment.yml
+                    """   
+                }
+            }
+        }
+
+        stage('Push edited deployment manifest file to Git') {
+            steps {
+                script {
+                    sh """
+                        git config --global user.name "highdbaba"
+                        git config --global user.email "highdbaba@yahoo.com"
+                        git add deployment.yml
+                        git commit -m "updated image on manifest file"
+                    """
+                    withCredentials([gitUsernamePassword(credentialsId: 'Github-Access', gitToolName: 'Default')]) {
+                        sh "git push https://github.com/highdbaba/e2e-pipeline.git master"   
+                    }
                 }
             }
         }
