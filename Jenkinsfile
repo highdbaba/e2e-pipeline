@@ -27,7 +27,7 @@ pipeline{
 
         stage("Checkout from SCM"){
             steps{
-                git branch: 'master', credentialsId: 'Github-Access', url: 'https://github.com/highdbaba/e2e-pipeline.git'
+                git branch: 'main', credentialsId: 'Github-Access', url: 'https://github.com/highdbaba/e2e-pipeline.git'
             }
         }
 
