@@ -101,7 +101,7 @@ pipeline{
                         git commit -m "updated image on manifest file"
                     """
                     withCredentials([gitUsernamePassword(credentialsId: 'Github-Access', gitToolName: 'Default')]) {
-                        sh "git push https://github.com/highdbaba/e2e-pipeline.git master"   
+                        sh "git push https://github.com/highdbaba/e2e-pipeline.git main"   
                     }
                 }
             }
