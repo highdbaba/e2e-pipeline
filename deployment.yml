@@ -15,7 +15,7 @@ spec:
         app: flask-app
     spec:
       containers:
-      - name: Flask-app-container
+      - name: flask-app-container
         image: 1759/e2e-newpipeline-production:1.1.0-41
         ports:
         - containerPort: 5000
